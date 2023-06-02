@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:travel_app/screens/account_screen/forget_password/forget_password_mail/forget_password_mail.dart';
+import 'package:travel_app/screens/account_screen/forget_password/forget_password_otp/forget_password_otp.dart';
 import 'package:travel_app/screens/account_screen/login.dart';
 import 'package:travel_app/screens/account_screen/register.dart';
 import 'package:travel_app/screens/main_screens/home.dart';
@@ -12,6 +13,7 @@ class TripRoutes{
   static const String login = '/login';
   static const String register = '/register';
   static const String fpMail = '/forgetPasswordMail';
+  static const String fpOtp = '/forgetPasswordOtp';
 
 
 
@@ -21,5 +23,6 @@ class TripRoutes{
     GetPage(name: home, page: () => const HomePage(), transition: Transition.rightToLeft, transitionDuration: _duration),
     GetPage(name: register, page: () => const Register(), transition: Transition.rightToLeft, transitionDuration: _duration),
     GetPage(name: fpMail, page: () => ForgetPasswordMail(), transition: Transition.rightToLeft, transitionDuration: _duration),
+    GetPage(name: fpOtp, page: () => OtpScreen(), transition: Transition.rightToLeft, transitionDuration: _duration),
   ];
 }

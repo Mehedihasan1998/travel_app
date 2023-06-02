@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/helper/routes.dart';
 import 'package:travel_app/screens/account_screen/forget_password/forget_password_otp/forget_password_otp.dart';
 import 'package:travel_app/widgets/custom_button.dart';
 import 'package:travel_app/widgets/custom_widgets.dart';
@@ -44,7 +45,7 @@ class ForgetPasswordMail extends StatelessWidget {
                 title: "Next",
                 color: Colors.blue,
                 onPressed: (){
-                  Get.to(OtpScreen());
+                  Get.toNamed(TripRoutes.fpOtp);
                 },
               ),
             ],
