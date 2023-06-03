@@ -33,9 +33,7 @@ class OtpScreen extends StatelessWidget {
             MyButton(
               title: "Next",
               color: Colors.blue,
-              onPressed: (){
-
-              },
+              onPressed: (){},
             ),
           ],
         ),
