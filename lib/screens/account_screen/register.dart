@@ -1,5 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:travel_app/authentication/sign_up_controller.dart';
 import 'package:travel_app/widgets/custom_button.dart';
 import 'package:travel_app/widgets/custom_widgets.dart';
 import 'package:intl/intl.dart';
@@ -11,13 +13,8 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  TextEditingController mailcontroller = TextEditingController();
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController dateOfBirthController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController pwcontroller = TextEditingController();
-  TextEditingController repwcontroller = TextEditingController();
+  final controller = Get.put(SignUpController());
+
   bool isobs = false;
   final _formKey = GlobalKey<FormState>();
 
@@ -64,7 +61,7 @@ class _RegisterState extends State<Register> {
                           width: MediaQuery.of(context).size.width*0.45,
                           child: TextFormField(
                             textInputAction: TextInputAction.next,
-                            controller: firstNameController,
+                            controller: controller.firstNameController,
                             validator: (value){
                               if(value!.isEmpty){
                                 return "Enter first name";
@@ -82,7 +79,7 @@ class _RegisterState extends State<Register> {
                           width: MediaQuery.of(context).size.width*0.45,
                           child: TextFormField(
                             textInputAction: TextInputAction.next,
-                            controller: lastNameController,
+                            controller: controller.lastNameController,
                             validator: (value){
                               if(value!.isEmpty){
                                 return "Enter last name";
@@ -100,7 +97,7 @@ class _RegisterState extends State<Register> {
                     TextFormField(
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.phone,
-                      controller: phoneController,
+                      controller: controller.phoneController,
                       validator: (value){
                         if(value!.isEmpty){
                           return "Enter a phone number";
@@ -153,7 +150,7 @@ class _RegisterState extends State<Register> {
                     TextFormField(
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.phone,
-                      controller: dateOfBirthController,
+                      controller: controller.dateOfBirthController,
                       validator: (value){
                         if(value!.isEmpty){
                           return "Enter your birth date";
@@ -171,7 +168,7 @@ class _RegisterState extends State<Register> {
                             lastDate: DateTime(2100));
                         if(pickedDate!=null){
                           setState(() {
-                            dateOfBirthController.text=DateFormat('yyyy-MM-dd').format(pickedDate);
+                            controller.dateOfBirthController.text=DateFormat('yyyy-MM-dd').format(pickedDate);
                           });
                         }
                       },
@@ -183,7 +180,7 @@ class _RegisterState extends State<Register> {
 
                     TextFormField(
                       textInputAction: TextInputAction.next,
-                      controller: mailcontroller,
+                      controller: controller.mailcontroller,
                       validator: (value){
                         if(value!.isEmpty){
                           return "Enter an Email";
@@ -201,7 +198,7 @@ class _RegisterState extends State<Register> {
 
 
                     TextFormField(
-                      controller: pwcontroller,
+                      controller: controller.pwcontroller,
                       obscureText: isobs,
                       validator: (value){
                         if(value!.isEmpty){
@@ -229,7 +226,7 @@ class _RegisterState extends State<Register> {
                     SizedBox(height: 10,),
 
                     TextFormField(
-                      controller: repwcontroller,
+                      controller: controller.repwcontroller,
                       obscureText: isobs,
                       validator: (value){
                         if(value!.isEmpty){
@@ -238,7 +235,7 @@ class _RegisterState extends State<Register> {
                         if(value.length<8){
                           return "Password must be more than 7 characters";
                         }
-                        if(value!=pwcontroller.text.toString()){
+                        if(value!=controller.repwcontroller.text.toString()){
                           return "Password does not match";
                         }
                       },
@@ -253,7 +250,10 @@ class _RegisterState extends State<Register> {
                     MyButton(
                       onPressed: (){
                         if(_formKey.currentState!.validate()){
-                          print("Sign up Successful");
+                          SignUpController.instance.registerUser(
+                              controller.mailcontroller.text.trim(),
+                              controller.pwcontroller.text.trim()
+                          );
                         }
                       },
                       color: buttonColor,
