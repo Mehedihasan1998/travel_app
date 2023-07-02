@@ -3,7 +3,6 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/widgets/custom_button.dart';
 import 'package:travel_app/widgets/custom_widgets.dart';
-
 import '../../../../authentication/otp_controller.dart';
 
 class OtpScreen extends StatelessWidget {
@@ -23,7 +22,7 @@ class OtpScreen extends StatelessWidget {
             Text("CO\nDE", style: myStyle(70,Colors.black,FontWeight.bold),),
             Text("VERIFICATION", style: myStyle(16,Colors.black,FontWeight.bold),),
             SizedBox(height: 20,),
-            Text("Enter the OTP sent to abc@gmail.com",textAlign: TextAlign.center, style: myStyle(16),),
+            Text("Enter the OTP here",textAlign: TextAlign.center, style: myStyle(16),),
             SizedBox(height: 20,),
             OtpTextField(
               filled: true,

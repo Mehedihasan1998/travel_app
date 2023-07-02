@@ -1,6 +1,8 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_app/screens/account_screen/forget_password/forget_password_options/forget_password_modal_bottom_sheet.dart';
+import 'package:travel_app/screens/account_screen/login_phone.dart';
+import 'package:travel_app/screens/main_screens/home.dart';
 import 'package:travel_app/widgets/custom_button.dart';
 import 'package:travel_app/widgets/custom_widgets.dart';
 import 'package:get/get.dart';
@@ -108,7 +110,8 @@ class _LogInState extends State<LogIn> {
                   MyButton(
                     onPressed: (){
                       if(_formKey.currentState!.validate()){
-                        print("Login Successful");
+                        // print("Login Successful");
+                        Get.to(HomePage());
                       }
                     },
                     color: buttonColor,
@@ -116,13 +119,29 @@ class _LogInState extends State<LogIn> {
                   ),
                   Text("or Sign in with"),
                   Divider(),
-                  Column(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.white,
-                        backgroundImage: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2008px-Google_%22G%22_Logo.svg.png"),
+                      Column(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: Colors.white,
+                            backgroundImage: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2008px-Google_%22G%22_Logo.svg.png"),
+                          ),
+                          Text("Google"),
+                        ],
                       ),
-                      Text("Google"),
+                      SizedBox(width: 30,),
+                      Column(
+                        children: [
+                          InkWell(
+                              onTap: (){
+                                Get.to(LogInPhone());
+                              },
+                              child: Icon(Icons.phone_android,size: 40,color: Colors.blue,)),
+                          Text("Phone")
+                        ],
+                      )
                     ],
                   )
                 ],
