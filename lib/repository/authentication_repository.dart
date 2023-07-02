@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/helper/routes.dart';
@@ -7,6 +9,7 @@ class AuthenticationRepository extends GetxController{
 
   final _auth = FirebaseAuth.instance;
   late final Rx<User?> firebaseUser;
+  var verificationID = ''.obs;
 
   @override
   void onReady() {
@@ -17,6 +20,35 @@ class AuthenticationRepository extends GetxController{
 
   _setInitialScreen(User? user) {
     user == null ? Get.offAllNamed(TripRoutes.initial) : Get.offAllNamed(TripRoutes.home);
+  }
+
+  Future<void> phoneAuthentication(String phoneNo) async{
+    await _auth.verifyPhoneNumber(
+      phoneNumber: phoneNo,
+        verificationCompleted: (credential) async{
+        await _auth.signInWithCredential(credential);
+        },
+        verificationFailed: (e){
+        if(e.code == 'invalid-phone-number'){
+          Get.snackbar('Error', 'The Phone Number is invalid...');
+        }
+        else
+          {
+            Get.snackbar('Error', 'Something went wrong. Try again.');
+          }
+        },
+        codeSent: (verificationId, resendToken){
+        this.verificationID.value=verificationId;
+        },
+        codeAutoRetrievalTimeout: (verificationId){
+          this.verificationID.value=verificationId;
+        }
+    );
+  }
+
+  Future<bool> verifyOTP(String otp) async{
+    var credentials= await _auth.signInWithCredential(PhoneAuthProvider.credential(verificationId: verificationID.value, smsCode: otp));
+    return credentials.user != null ? true : false;
   }
 
   Future<void> createUserWithEmailAndPassword(String email, String password) async{

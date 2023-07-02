@@ -4,11 +4,14 @@ import 'package:get/get.dart';
 import 'package:travel_app/widgets/custom_button.dart';
 import 'package:travel_app/widgets/custom_widgets.dart';
 
+import '../../../../authentication/otp_controller.dart';
+
 class OtpScreen extends StatelessWidget {
   const OtpScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var otp;
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -26,14 +29,18 @@ class OtpScreen extends StatelessWidget {
               numberOfFields: 6,
               fillColor: Colors.black.withOpacity(0.1),
               onSubmit: (code){
-                print("Code is => $code");
+                // print("Code is => $code");
+                otp=code;
+                OTPController.instance.verifyOTP(otp);
               },
             ),
             SizedBox(height: 20,),
             MyButton(
               title: "Next",
               color: Colors.blue,
-              onPressed: (){},
+              onPressed: (){
+                OTPController.instance.verifyOTP(otp);
+              },
             ),
           ],
         ),

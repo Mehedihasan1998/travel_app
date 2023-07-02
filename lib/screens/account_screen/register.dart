@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/authentication/sign_up_controller.dart';
+import 'package:travel_app/screens/account_screen/forget_password/forget_password_otp/forget_password_otp.dart';
 import 'package:travel_app/widgets/custom_button.dart';
 import 'package:travel_app/widgets/custom_widgets.dart';
 import 'package:intl/intl.dart';
@@ -250,10 +251,12 @@ class _RegisterState extends State<Register> {
                     MyButton(
                       onPressed: (){
                         if(_formKey.currentState!.validate()){
-                          SignUpController.instance.registerUser(
-                              controller.mailcontroller.text.trim(),
-                              controller.pwcontroller.text.trim()
-                          );
+                          // SignUpController.instance.registerUser(
+                          //     controller.mailcontroller.text.trim(),
+                          //     controller.pwcontroller.text.trim()
+                          // );
+                          SignUpController.instance.phoneAuthentication(controller.phoneController.text.trim());
+                          Get.to(()=>OtpScreen());
                         }
                       },
                       color: buttonColor,
