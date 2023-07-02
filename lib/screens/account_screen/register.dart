@@ -103,7 +103,7 @@ class _RegisterState extends State<Register> {
                         if(value!.isEmpty){
                           return "Enter a phone number";
                         }
-                        if(value!.length!=11){
+                        if(value!.length!=14){
                           return "Enter valid phone number";
                         }
                       },
