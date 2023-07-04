@@ -2,10 +2,12 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/authentication/sign_up_controller.dart';
+import 'package:travel_app/model/user_model.dart';
 import 'package:travel_app/screens/account_screen/forget_password/forget_password_otp/forget_password_otp.dart';
 import 'package:travel_app/widgets/custom_button.dart';
 import 'package:travel_app/widgets/custom_widgets.dart';
 import 'package:intl/intl.dart';
+
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
 
@@ -32,7 +34,8 @@ class _RegisterState extends State<Register> {
             child: Form(
               key: _formKey,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 10.0, vertical: 10),
                 child: Column(
                   children: [
                     DefaultTextStyle(
@@ -45,7 +48,7 @@ class _RegisterState extends State<Register> {
                         animatedTexts: [
                           TypewriterAnimatedText(
                               'Sign Up',
-                          speed: Duration(milliseconds: 100, )
+                              speed: Duration(milliseconds: 100,)
                           )
                         ],
                         repeatForever: true,
@@ -59,12 +62,15 @@ class _RegisterState extends State<Register> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width*0.45,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.45,
                           child: TextFormField(
                             textInputAction: TextInputAction.next,
                             controller: controller.firstNameController,
-                            validator: (value){
-                              if(value!.isEmpty){
+                            validator: (value) {
+                              if (value!.isEmpty) {
                                 return "Enter first name";
                               }
                             },
@@ -77,12 +83,15 @@ class _RegisterState extends State<Register> {
 
 
                         Container(
-                          width: MediaQuery.of(context).size.width*0.45,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.45,
                           child: TextFormField(
                             textInputAction: TextInputAction.next,
                             controller: controller.lastNameController,
-                            validator: (value){
-                              if(value!.isEmpty){
+                            validator: (value) {
+                              if (value!.isEmpty) {
                                 return "Enter last name";
                               }
                             },
@@ -99,11 +108,11 @@ class _RegisterState extends State<Register> {
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.phone,
                       controller: controller.phoneController,
-                      validator: (value){
-                        if(value!.isEmpty){
+                      validator: (value) {
+                        if (value!.isEmpty) {
                           return "Enter a phone number";
                         }
-                        if(value!.length!=14){
+                        if (value!.length != 14) {
                           return "Enter valid phone number";
                         }
                       },
@@ -116,44 +125,43 @@ class _RegisterState extends State<Register> {
 
 
                     Container(
-                      padding: EdgeInsets.only(left: 16,right: 16),
+                      padding: EdgeInsets.only(left: 16, right: 16),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey, width: 1),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: DropdownButton(
                         hint: Text("Select your gender"),
-                          dropdownColor: Colors.white,
-                          iconEnabledColor: Colors.blue,
-                          icon: Icon(Icons.arrow_drop_down),
-                          iconSize: 20,
-                          isExpanded: true,
-                          underline: SizedBox(),
-                          style: TextStyle(color: Colors.black,fontSize: 16),
-                          value: valueChoose,
-                        onChanged: (newValue){
+                        dropdownColor: Colors.white,
+                        iconEnabledColor: Colors.blue,
+                        icon: Icon(Icons.arrow_drop_down),
+                        iconSize: 20,
+                        isExpanded: true,
+                        underline: SizedBox(),
+                        style: TextStyle(color: Colors.black, fontSize: 16),
+                        value: valueChoose,
+                        onChanged: (newValue) {
                           setState(() {
-                            valueChoose=newValue.toString();
+                            valueChoose = newValue.toString();
+                            controller.gender = valueChoose!;
                           });
                         },
                         items: gender.map((valueItem) {
-                            return DropdownMenuItem(
+                          return DropdownMenuItem(
                               value: valueItem,
-                                child: Text(valueItem));
-                          }).toList(),
+                              child: Text(valueItem));
+                        }).toList(),
                       ),
                     ),
                     SizedBox(height: 10,),
-
-
 
 
                     TextFormField(
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.phone,
                       controller: controller.dateOfBirthController,
-                      validator: (value){
-                        if(value!.isEmpty){
+                      validator: (value) {
+                        if (value!.isEmpty) {
                           return "Enter your birth date";
                         }
                       },
@@ -161,15 +169,16 @@ class _RegisterState extends State<Register> {
                         prefixIcon: Icon(Icons.calendar_month_outlined),
                         hintText: "Date of Birth",
                         labelText: "Enter Birth Date",),
-                      onTap: () async{
-                        DateTime ?pickedDate= await showDatePicker(
+                      onTap: () async {
+                        DateTime ?pickedDate = await showDatePicker(
                             context: context,
                             initialDate: DateTime.now(),
                             firstDate: DateTime(1980),
                             lastDate: DateTime(2100));
-                        if(pickedDate!=null){
+                        if (pickedDate != null) {
                           setState(() {
-                            controller.dateOfBirthController.text=DateFormat('yyyy-MM-dd').format(pickedDate);
+                            controller.dateOfBirthController.text =
+                                DateFormat('yyyy-MM-dd').format(pickedDate);
                           });
                         }
                       },
@@ -177,16 +186,14 @@ class _RegisterState extends State<Register> {
                     SizedBox(height: 10,),
 
 
-
-
                     TextFormField(
                       textInputAction: TextInputAction.next,
                       controller: controller.mailcontroller,
-                      validator: (value){
-                        if(value!.isEmpty){
+                      validator: (value) {
+                        if (value!.isEmpty) {
                           return "Enter an Email";
                         }
-                        if(!value.contains("@")){
+                        if (!value.contains("@")) {
                           return "Enter valid Email";
                         }
                       },
@@ -201,24 +208,24 @@ class _RegisterState extends State<Register> {
                     TextFormField(
                       controller: controller.pwcontroller,
                       obscureText: isobs,
-                      validator: (value){
-                        if(value!.isEmpty){
+                      validator: (value) {
+                        if (value!.isEmpty) {
                           return "Enter a Password";
                         }
-                        if(value.length<8){
+                        if (value.length < 8) {
                           return "Password must be more than 7 characters";
                         }
                       },
                       keyboardType: TextInputType.number,
                       decoration: customInputDecoration.copyWith(
                         suffixIcon: IconButton(
-                        onPressed: (){
-                          setState(() {
-                            isobs=!isobs;
-                          });
-                        },
-                        icon: Icon(Icons.visibility),
-                      ),
+                          onPressed: () {
+                            setState(() {
+                              isobs = !isobs;
+                            });
+                          },
+                          icon: Icon(Icons.visibility),
+                        ),
                         filled: true,
                         hintText: "Enter Password",
                         labelText: "Enter Your Password",
@@ -229,14 +236,15 @@ class _RegisterState extends State<Register> {
                     TextFormField(
                       controller: controller.repwcontroller,
                       obscureText: isobs,
-                      validator: (value){
-                        if(value!.isEmpty){
+                      validator: (value) {
+                        if (value!.isEmpty) {
                           return "Enter a Password";
                         }
-                        if(value.length<8){
+                        if (value.length < 8) {
                           return "Password must be more than 7 characters";
                         }
-                        if(value!=controller.repwcontroller.text.toString()){
+                        if (value != controller.repwcontroller.text
+                            .toString()) {
                           return "Password does not match";
                         }
                       },
@@ -249,14 +257,26 @@ class _RegisterState extends State<Register> {
                     SizedBox(height: 20,),
 
                     MyButton(
-                      onPressed: (){
-                        if(_formKey.currentState!.validate()){
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          // Email
                           // SignUpController.instance.registerUser(
                           //     controller.mailcontroller.text.trim(),
                           //     controller.pwcontroller.text.trim()
                           // );
-                          SignUpController.instance.phoneAuthentication(controller.phoneController.text.trim());
-                          Get.to(()=>OtpScreen());
+
+                          final user = UserModel(
+                              firstName: controller.firstNameController.text.trim(),
+                              lastName: controller.lastNameController.text.trim(),
+                              gender: controller.gender,
+                              phone: controller.phoneController.text.trim(),
+                              dateOfBirth: controller.dateOfBirthController.text.trim(),
+                              email: controller.mailcontroller.text.trim(),
+                              password: controller.pwcontroller.text.trim(),
+                          );
+                          // Phone
+                          SignUpController.instance.createUser(user);
+
                         }
                       },
                       color: buttonColor,
@@ -269,7 +289,8 @@ class _RegisterState extends State<Register> {
                       children: [
                         CircleAvatar(
                           backgroundColor: Colors.white,
-                          backgroundImage: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2008px-Google_%22G%22_Logo.svg.png"),
+                          backgroundImage: NetworkImage(
+                              "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2008px-Google_%22G%22_Logo.svg.png"),
                         ),
                         Text("Google")
                       ],
