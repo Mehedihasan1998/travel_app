@@ -12,6 +12,7 @@ class Profile extends StatefulWidget {
   State<Profile> createState() => _ProfileState();
 }
 
+
 class _ProfileState extends State<Profile> {
   final profileController = Get.put(ProfileController());
   @override
@@ -34,7 +35,7 @@ class _ProfileState extends State<Profile> {
         builder: (context, snapshot){
           if(snapshot.connectionState == ConnectionState.done){
             if(snapshot.hasData){
-              UserModel userData = snapshot.data as UserModel;
+              UserModel userData = snapshot.data.obs as UserModel;
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

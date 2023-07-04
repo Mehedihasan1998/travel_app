@@ -5,6 +5,7 @@ import 'package:travel_app/authentication/sign_up_controller.dart';
 import 'package:travel_app/controller/profile_controller.dart';
 import 'package:travel_app/model/user_model.dart';
 import 'package:travel_app/widgets/custom_widgets.dart';
+
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
 
@@ -13,13 +14,14 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
-  final controller = Get.put(SignUpController());
-  final profileController = Get.put(ProfileController());
+  final editController = Get.put(ProfileController());
+  final registerController = Get.put(ProfileController());
 
   bool isobs = false;
   final _formKey = GlobalKey<FormState>();
-
+  String gender="";
   String ?valueChoose;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,22 +29,35 @@ class _EditProfileState extends State<EditProfile> {
         elevation: 0,
         centerTitle: true,
         backgroundColor: Colors.white,
-        title: Text("Edit Profile", style: myStyle(18,Colors.black,FontWeight.bold),),
+        title: Text(
+          "Edit Profile", style: myStyle(18, Colors.black, FontWeight.bold),),
       ),
       body: SingleChildScrollView(
         child: FutureBuilder(
-          future: profileController.getUserData(),
-          builder: (context, snapshot){
-            if(snapshot.connectionState == ConnectionState.done){
-              if(snapshot.hasData){
-                UserModel userData = snapshot.data as UserModel;
+          future: editController.getUserData(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasData) {
+                UserModel user = snapshot.data as UserModel;
+                final id = TextEditingController(text: user.id);
+                final mailcontroller = TextEditingController(text: user.email);
+                final firstNameController = TextEditingController(
+                    text: user.firstName);
+                final phoneController = TextEditingController(text: user.phone);
+                final genderController = TextEditingController(text: user.gender);
+                final dateOfBirthController = TextEditingController(
+                    text: user.dateOfBirth);
+                final lastNameController = TextEditingController(
+                    text: user.lastName);
+                final pwcontroller = TextEditingController(text: user.password);
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     CircleAvatar(
                       maxRadius: 50,
-                      backgroundImage: NetworkImage("https://static.vecteezy.com/system/resources/previews/002/275/847/original/male-avatar-profile-icon-of-smiling-caucasian-man-vector.jpg"),
+                      backgroundImage: NetworkImage(
+                          "https://static.vecteezy.com/system/resources/previews/002/275/847/original/male-avatar-profile-icon-of-smiling-caucasian-man-vector.jpg"),
                     ),
                     SizedBox(height: 20,),
                     Form(
@@ -54,7 +69,7 @@ class _EditProfileState extends State<EditProfile> {
                           children: [
 
                             TextFormField(
-                              initialValue: userData.firstName,
+                              controller: firstNameController,
                               textInputAction: TextInputAction.next,
                               validator: (value) {
                                 if (value!.isEmpty) {
@@ -62,7 +77,8 @@ class _EditProfileState extends State<EditProfile> {
                                 }
                               },
                               decoration: customInputDecoration.copyWith(
-                                prefixIcon: Icon(Icons.drive_file_rename_outline),
+                                prefixIcon: Icon(
+                                    Icons.drive_file_rename_outline),
                                 hintText: "First Name",
                                 labelText: "First Name",),
                             ),
@@ -70,7 +86,7 @@ class _EditProfileState extends State<EditProfile> {
 
 
                             TextFormField(
-                              initialValue: userData.lastName,
+                              controller: lastNameController,
                               textInputAction: TextInputAction.next,
                               validator: (value) {
                                 if (value!.isEmpty) {
@@ -78,14 +94,15 @@ class _EditProfileState extends State<EditProfile> {
                                 }
                               },
                               decoration: customInputDecoration.copyWith(
-                                prefixIcon: Icon(Icons.drive_file_rename_outline),
+                                prefixIcon: Icon(
+                                    Icons.drive_file_rename_outline),
                                 hintText: "Last Name",
                                 labelText: "Last Name",),
                             ),
                             SizedBox(height: 10,),
 
                             TextFormField(
-                              initialValue: userData.phone,
+                              controller: phoneController,
                               textInputAction: TextInputAction.next,
                               keyboardType: TextInputType.phone,
                               validator: (value) {
@@ -104,9 +121,21 @@ class _EditProfileState extends State<EditProfile> {
 
                             SizedBox(height: 10,),
 
+                            TextFormField(
+                              controller: genderController,
+                              textInputAction: TextInputAction.next,
+                              keyboardType: TextInputType.phone,
+                              decoration: customInputDecoration.copyWith(
+                                prefixIcon: Icon(Icons.person),
+                                hintText: "Gender",
+                                labelText: "Gender",),
+                            ),
+
+                            SizedBox(height: 10,),
+
 
                             TextFormField(
-                              initialValue: userData.dateOfBirth,
+                              controller: dateOfBirthController,
                               textInputAction: TextInputAction.next,
                               keyboardType: TextInputType.phone,
                               validator: (value) {
@@ -126,8 +155,9 @@ class _EditProfileState extends State<EditProfile> {
                                     lastDate: DateTime(2100));
                                 if (pickedDate != null) {
                                   setState(() {
-                                    controller.dateOfBirthController.text =
-                                        DateFormat('yyyy-MM-dd').format(pickedDate);
+                                    dateOfBirthController.text =
+                                        DateFormat('yyyy-MM-dd').format(
+                                            pickedDate);
                                   });
                                 }
                               },
@@ -136,7 +166,7 @@ class _EditProfileState extends State<EditProfile> {
 
 
                             TextFormField(
-                              initialValue: userData.email,
+                              controller: mailcontroller,
                               textInputAction: TextInputAction.next,
                               validator: (value) {
                                 if (value!.isEmpty) {
@@ -155,7 +185,7 @@ class _EditProfileState extends State<EditProfile> {
 
 
                             TextFormField(
-                              initialValue: userData.password,
+                              controller: pwcontroller,
                               obscureText: isobs,
                               validator: (value) {
                                 if (value!.isEmpty) {
@@ -188,12 +218,27 @@ class _EditProfileState extends State<EditProfile> {
                                 color: buttonColor,
                                 borderRadius: BorderRadius.circular(30.0),
                                 child: MaterialButton(
-                                  onPressed: (){
-
+                                  onPressed: () async {
+                                    final userData = UserModel(
+                                        id: id.text,
+                                        firstName: firstNameController.text.trim(),
+                                        lastName: lastNameController.text.trim(),
+                                        phone: phoneController.text.trim(),
+                                        gender: genderController.text.trim(),
+                                        dateOfBirth: dateOfBirthController.text.trim(),
+                                        email: mailcontroller.text.trim(),
+                                        password: pwcontroller.text.trim(),
+                                    );
+                                    await editController.updateRecord(userData);
+                                    Get.snackbar("Successful", "Changes saved successfully",snackPosition: SnackPosition.BOTTOM);
                                   },
-                                  minWidth: MediaQuery.of(context).size.width,
+                                  minWidth: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width,
                                   height: 50,
-                                  child: Text("Save Changes",style: TextStyle(color: Colors.white, fontSize: 16),
+                                  child: Text("Save Changes", style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
                                   ),
                                 ),
                               ),
@@ -204,12 +249,13 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                   ],
                 );
-              } else if(snapshot.hasError){
+              } else if (snapshot.hasError) {
                 return Center(child: Text(snapshot.error.toString()),);
-              } else{
-                return Center(child: Text("Something went wrong.",style: myStyle(16),));
+              } else {
+                return Center(
+                    child: Text("Something went wrong.", style: myStyle(16),));
               }
-            } else{
+            } else {
               return const Center(child: CircularProgressIndicator(),);
             }
           },

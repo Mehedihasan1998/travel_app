@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
                 },
                 icon: Icon(
                   Icons.person_pin_outlined,
-                  size: 25,
+                  size: 30,
                   color: Colors.blue,
                 )),
           ),
