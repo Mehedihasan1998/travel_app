@@ -20,7 +20,7 @@ class TripRoutes{
   static List<GetPage> routes = [
     GetPage(name: initial, page: () => const SplashScreen(), transition: Transition.rightToLeft, transitionDuration: _duration),
     GetPage(name: login, page: () => const LogIn(), transition: Transition.rightToLeft, transitionDuration: _duration),
-    GetPage(name: home, page: () => const HomePage(), transition: Transition.rightToLeft, transitionDuration: _duration),
+    GetPage(name: home, page: () =>  HomePage(), transition: Transition.rightToLeft, transitionDuration: _duration),
     GetPage(name: register, page: () => const Register(), transition: Transition.rightToLeft, transitionDuration: _duration),
     GetPage(name: fpMail, page: () => ForgetPasswordMail(), transition: Transition.rightToLeft, transitionDuration: _duration),
     GetPage(name: fpOtp, page: () => OtpScreen(), transition: Transition.rightToLeft, transitionDuration: _duration),

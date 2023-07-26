@@ -16,12 +16,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      debugShowCheckedModeBanner: false ,
+      debugShowCheckedModeBanner: false,
       title: 'My Trip',
       initialRoute: TripRoutes.initial,
       getPages: TripRoutes.routes,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Colors.white.withOpacity(0.9),
       ),
       home: SplashScreen(),
     );
