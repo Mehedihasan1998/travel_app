@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:travel_app/screens/splash_screen.dart';
 import 'package:travel_app/widgets/custom_widgets.dart';
 
-import 'profile.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -60,12 +57,13 @@ class _HomePageState extends State<HomePage> {
                       child: Container(
                         decoration: BoxDecoration(
                           color: selectedIndex.contains(index) ? Colors.blue: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: selectedIndex.contains(index) ? Colors.white: Colors.blue)
                         ),
                         child: Center(
                             child: Text(
                           "${places[index]}",
-                          style: myStyle(20,  selectedIndex.contains(index) ? Colors.white: Colors.black, FontWeight.bold),
+                          style: myStyle(16,  selectedIndex.contains(index) ? Colors.white: Colors.black, FontWeight.bold),
                           textAlign: TextAlign.center,
                         )),
                       ),

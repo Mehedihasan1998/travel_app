@@ -35,7 +35,7 @@ class _ProfileState extends State<Profile> {
         builder: (context, snapshot){
           if(snapshot.connectionState == ConnectionState.done){
             if(snapshot.hasData){
-              UserModel userData = snapshot.data.obs as UserModel;
+              UserModel userData = snapshot.data as UserModel;
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
