@@ -38,6 +38,15 @@ class _RegisterState extends State<Register> {
                     horizontal: 10.0, vertical: 10),
                 child: Column(
                   children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(70.0),
+                      child: Image.asset("images/app_icon.jpg",
+                        width: MediaQuery.of(context).size.width*0.4,
+                        height: MediaQuery.of(context).size.height*0.15,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    SizedBox(height: 10,),
                     DefaultTextStyle(
                       style: TextStyle(
                         color: Colors.blue,

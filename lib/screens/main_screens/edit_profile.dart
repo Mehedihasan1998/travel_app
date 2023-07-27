@@ -230,7 +230,7 @@ class _EditProfileState extends State<EditProfile> {
                                         password: pwcontroller.text.trim(),
                                     );
                                     await editController.updateRecord(userData);
-                                    Get.snackbar("Successful", "Changes saved successfully",snackPosition: SnackPosition.BOTTOM);
+                                    Get.snackbar("Successful", "Changes saved successfully",snackPosition: SnackPosition.TOP,backgroundColor: Colors.greenAccent);
                                   },
                                   minWidth: MediaQuery
                                       .of(context)
