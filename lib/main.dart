@@ -5,6 +5,7 @@ import 'package:travel_app/firebase_options.dart';
 import 'package:travel_app/helper/routes.dart';
 import 'package:travel_app/repository/authentication_repository.dart';
 import 'package:travel_app/screens/splash_screen.dart';
+import 'package:travel_app/screens/splash_screen/animation_splash.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.white.withOpacity(0.9),
       ),
-      home: SplashScreen(),
+      home: AnimationSplash(),
     );
   }
 }
