@@ -41,7 +41,11 @@ class HomeAppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Icon(Icons.qr_code, size: 30, color: Colors.blue,),
+          InkWell(
+              onTap: (){
+                Get.back();
+              },
+              child: Icon(Icons.logout, size: 30, color: Colors.blue,)),
           Column(
             children: [
               Text("Current Location", style: myStyle(18),),

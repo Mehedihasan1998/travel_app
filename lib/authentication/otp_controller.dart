@@ -10,6 +10,5 @@ class OTPController extends GetxController{
     var isVerified = await AuthenticationRepository.instance.verifyOTP(otp);
     isVerified ? Get.offAll(HomePage()) : Get.back();
 
-
   }
 }
